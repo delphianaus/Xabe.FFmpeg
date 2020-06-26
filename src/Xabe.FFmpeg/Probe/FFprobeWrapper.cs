@@ -26,10 +26,10 @@ namespace Xabe.FFmpeg
             return probe.streams ?? new ProbeModel.Stream[0];
         }
 
-        private double GetVideoFramerate(ProbeModel.Stream vid)
+        private decimal GetVideoFramerate(ProbeModel.Stream vid)
         {
             string[] fr = vid.r_frame_rate.Split('/');
-            return Math.Round(double.Parse(fr[0]) / double.Parse(fr[1]), 3);
+            return Math.Round(decimal.Parse(fr[0]) / decimal.Parse(fr[1]), 3);
         }
 
         private string GetVideoAspectRatio(int width, int height)
@@ -194,7 +194,7 @@ namespace Xabe.FFmpeg
                 Duration = GetVideoDuration(model, format),
                 Width = model.width,
                 Height = model.height,
-                Framerate = GetVideoFramerate(model),
+                Framerate = Decimal.ToDouble(GetVideoFramerate(model)),
                 Ratio = GetVideoAspectRatio(model.width, model.height),
                 Path = path,
                 Index = model.index,
